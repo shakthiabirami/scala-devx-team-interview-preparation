@@ -3,8 +3,12 @@ package com.abirami.fp4j.module0;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.IntPredicate;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class FunctionalProgrammingBasics {
     //Imperative style of programming
@@ -16,9 +20,9 @@ public class FunctionalProgrammingBasics {
         //i.e A number is prime if it is only divisible by 1 and the number itself
 
         //Start with the iteration of the bet
-        for (int i = 2; i <number; i++) {
+        for (int i = 2; i < number; i++) {
             //If we find the number is divisible by the index we then say the number is not prime
-            if (number % i == 0 )
+            if (number % i == 0)
                 return false;
         }
         //then we check that the number is greater than 1 as 1 is not the prime number
@@ -29,49 +33,75 @@ public class FunctionalProgrammingBasics {
     //Declarative
     //1.Focus on "What"
     //2.Immutability
-    private static boolean  isPrime_Functional(int number){
-        return number > 1 && IntStream.range(2,number)
+    private static boolean isPrime_Functional(int number) {
+        return number > 1 && IntStream.range(2, number)
                 .noneMatch(index -> number % index == 0);
     }
 
     //Making the code even more readable
-    private static boolean  isPrime_Functional_1(int number){
-        Predicate<Integer> isDivisible = divisor -> number % divisor == 0;
-        return number > 1 && IntStream.range(2,number)
-                .noneMatch(index -> number % index == 0);
+    private static boolean isPrimeFunctional(int number) {
+        IntPredicate isDivisible = div -> number % div == 0;
+
+        return (number > 1) && IntStream.range(2, number)
+                .noneMatch(isDivisible);
     }
 
+
     public static void main(String[] args) {
-        System.out.println(isPrime(1));
-        System.out.println(isPrime(2));
+        System.out.println(isPrimeFunctional(1));
+        System.out.println(isPrimeFunctional(2));
 
-        System.out.println(isPrime(3));
+        System.out.println(isPrimeFunctional(3));
 
-        System.out.println(isPrime(4));
+        System.out.println(isPrimeFunctional(4));
 
-        //Find the double of the first even number greater than 3
-        //Imperative style
-        List<Integer> values = Arrays.asList(1,2,3,5,4,6,7,8,9,10);
+        // Find the first integer greater than 3 and return the double value of it
+
+
         int result = 0;
-        for (int e: values) {
-            if(e > 3 && e % 2 ==0 ){
-                result = e*2;
+        List<Integer> numberList = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8);
+        //List<Integer> numberList= Arrays.asList(3);
+
+        // Imperative Style
+        for (int element : numberList) {
+            if (element > 3) {
+                result = element * 2;
                 break;
             }
         }
-        System.out.println(result);
+        System.out.println("Result: " + result);
 
-        //Find the double of the first even number greater than 3
-        //Functional style
-        System.out.println(
-        values.stream()
-                .filter(e -> e > 3)
-                .filter(e -> e% 2 == 0)
-                .map(e -> e*2)
-                .findFirst()
-        );
+        //Functional Style
 
 
+        //Predicate<Integer> isGreaterThan3 = number -> number > 3;
+        Function<Integer,Predicate<Integer>> isGreaterThan = pivot -> number -> number > pivot;
+        Stream<Integer> temp = numberList.stream()
+                .filter(isGreaterThan.apply(3))
+                .filter(FunctionalProgrammingBasics::isEven)
+                .map(FunctionalProgrammingBasics::doubleIt);
+
+        System.out.println(temp);
+        System.out.println(temp.findFirst().get());
+
+
+    }
+
+    private static boolean isEven(int number) {
+        System.out.println("Is Even :" + number);
+        return number % 2 == 0;
+    }
+
+    private static int doubleIt(int number) {
+        System.out.println("Double It :" + number);
+
+        return number * 2;
+    }
+
+    private static boolean isGreaterThan3(int number) {
+        System.out.println("Is greater than :" + number);
+
+        return number > 3;
     }
 
 
