@@ -1,4 +1,24 @@
 # sap-scala-devx-team-interview-preparation
+## Topics for preparation
+### Difference between Functional Programming paradigm vs Imperative Programming mode
+### Basic understanding of Functional Programming concepts 
+#### Recursion instead of iteration
+#### Higher order functions
+#### immutable vs mutable
+### Basic understanding of Functional Reactive Programming
+#### Signal Constants
+#### Reassignable Vars
+#### Events
+### Cloud Foundry Concepts
+#### Backing Services
+#### Authorization services
+#### OAuth2.0 token based assertion
+#### Multi Cloud IDE
+#### MTA/MTAR
+#### SAP HANA XSA
+#### Design of distributed systems, e.g., using Kafka
+
+
 ## Functional Programming in Java
 Java 8 supports functional style of programming.
 ### Functional style of programming
