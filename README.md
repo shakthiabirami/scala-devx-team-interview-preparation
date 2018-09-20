@@ -1,4 +1,4 @@
-# sap-scala-devx-team-interview-preparation
+# scala-devx-team-interview-preparation
 ## Topics for preparation
 ### Difference between Functional Programming paradigm vs Imperative Programming mode
 ### Basic understanding of Functional Programming concepts 
